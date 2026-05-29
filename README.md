@@ -2,7 +2,7 @@
 
 local patch for crash I hit when launching the game.
 
-This is not meant for online play. Do not use it with BattlEye. It is only for launching the game directly through `SCUM.exe` ( you can append -dx12 if wanted to id ) with BattlEye disabled/not running.
+This is not meant for online play. Do not use it with BattlEye. It is only for launching the game directly through `SCUM.exe` ( you can append -dx12 if u need it ) with BattlEye disabled/not running.
 
 ## What it fixes
 
