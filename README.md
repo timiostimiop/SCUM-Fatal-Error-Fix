@@ -1,19 +1,19 @@
 # SCUM menu crash patch
 
-Small local patch for a SCUM crash I hit when launching the game without sound and then hovering/clicking buttons in the main menu.
+local patch for crash I hit when launching the game.
 
-This is not meant for online play. Do not use it with BattlEye. It is only for launching the game directly through `SCUM.exe` with BattlEye disabled/not running.
+This is not meant for online play. Do not use it with BattlEye. It is only for launching the game directly through `SCUM.exe` ( you can append -dx12 if wanted to id ) with BattlEye disabled/not running.
 
 ## What it fixes
 
-The crash I saw had two bad paths:
+notes:
 
-- `SCUM.exe+0x4B16410`: XAudio open path can continue even when the XAudio pointer is not valid.
-- `SCUM.exe+0x42DC090`: menu hover code can get called with a null source pointer and then crashes at `SCUM.exe+0x42DC09A`.
+- `SCUM.exe+0x4B16410`: XAudio bad ptr
+- `SCUM.exe+0x42DC090`: nullptr access multiple times `SCUM.exe+0x42DC09A`.
 
-The DLL patches those spots in memory. If the risky pointer is missing, it returns a safe failure/empty result instead of letting the game crash.
+The dll patches those spots in memory. If the risky pointer is missing, it returns a safe failure/empty result instead of letting the game crash.
 
-There are no config files and no logs. The DLL just patches those two places and stays quiet.
+dll just patches those two places and stays quiet.
 
 ## Important
 
@@ -23,7 +23,6 @@ Use it only like this:
 
 - BattlEye is not running.
 - The game is started by running `SCUM.exe` directly.
-- You are using it to get around this local crash, not to join protected servers.
 
 The injector also checks for common BattlEye processes and refuses to inject if it sees them.
 
@@ -93,6 +92,6 @@ ScumAudioDiagInjector.exe --once
 
 ## Notes
 
-The DLL checks the bytes at the two target offsets before patching. If SCUM updates and those bytes change, the hook for that spot will not install.
+The dll checks the bytes at the two target offsets before patching. If SCUM updates and those bytes change, the hook for that spot will not install.
 
 This is a narrow local workaround for one crash path, not a general SCUM patch.
